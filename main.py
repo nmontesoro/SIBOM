@@ -57,13 +57,13 @@ for url in urls:
         except Exception:
             print("ERROR!")
             pass
-        # Espero 30s entre cada tweet, para no llenar el timeline de los
+        # Espero 15s entre cada tweet, para no llenar el timeline de los
         # seguidores y evitar que marquen la cuenta como spam.
         j += 1
-        time.sleep(30)
-    # Espero 60s entre cada hilo
+        time.sleep(15)
+    # Espero 15s adicionales entre cada hilo
     i += 1
-    time.sleep(60)
+    time.sleep(15)
             
 
 with open("id", "wt") as fp:
