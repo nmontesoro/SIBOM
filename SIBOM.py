@@ -48,7 +48,7 @@ class Publicacion:
         if not os.path.exists("temp"):
             os.mkdir("temp")
 
-        fill = "... (sigue)"
+        fill = "..."
         max_chars = 280 - len(fill)
         tweets = []
         first_tweet = self.ciudad_fecha + "\n" + self.titulo + \
@@ -56,11 +56,16 @@ class Publicacion:
             ("", " (ver anexos)")[len(self.anexos) > 0]
         first_tweet += "\nRecordá que esta cuenta no está afiliada al Municipio!"
         tweets.append(Tweet(first_tweet))
-        for art in self.articulos:
-            art = self._FormatText(art)
-            if len(art) > max_chars:
-                art = art[:max_chars] + fill
-            tweets.append(Tweet(art, []))
+
+        for text in self.articulos:
+            text = self._FormatText(text)
+            text_sub = textwrap.wrap(text, max_chars)
+            n = len(text_sub)
+
+            for i in range(0, n):
+                if i != n - 1:
+                    text_sub[i] += fill
+                tweets.append(Tweet(text_sub[i], []))
 
         media_filenames = []
         for i in range(0, len(self.imagenes)):
@@ -93,7 +98,7 @@ class Publicacion:
         text = text.replace(u"º", u"°")
         text = spaces_regex.sub(" ", text)
         # "Artículo 3˚.- Se dispone..." -> "3: Se dispone..."
-        text = art_regex.sub(r"\1: ", text)
+        text = art_regex.sub(r"[\1]: ", text)
 
         return text
 
