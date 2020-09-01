@@ -33,6 +33,9 @@ if id == last_id:
     print("No hay boletines nuevos.")
     exit(0)
 
+with open("id", "wt") as fp:
+    fp.write(str(id))
+
 urls = s.GetAllURLs(id)
 url_count = len(urls)
 i = 1
@@ -65,6 +68,3 @@ for url in urls:
     i += 1
     time.sleep(15)
             
-
-with open("id", "wt") as fp:
-    fp.write(str(id))
